@@ -1,0 +1,601 @@
+Type-checking move
+...action passes type checking.
+Type-checking pick-up
+...action passes type checking.
+Type-checking drop
+...action passes type checking.
+Type-checking unlock
+...action passes type checking.
+Type-checking clean
+...action passes type checking.
+Checking plan: ./submissions/queens_example/marking/1/plan.p03.pddl
+Plan to validate:
+
+Plan size: 78
+1:
+(pick-up loc-2-1 key1)
+ 
+2:
+(move loc-2-1 loc-2-2 c2122)
+ 
+3:
+(move loc-2-2 loc-1-2 c1222)
+ 
+4:
+(unlock loc-1-2 c1223 red key1)
+ 
+5:
+(move loc-1-2 loc-1-3 c1213)
+ 
+6:
+(unlock loc-1-3 c1323 red key1)
+ 
+7:
+(move loc-1-3 loc-1-4 c1314)
+ 
+8:
+(unlock loc-1-4 c2314 red key1)
+ 
+9:
+(move loc-1-4 loc-2-4 c1424)
+ 
+10:
+(unlock loc-2-4 c2324 red key1)
+ 
+11:
+(drop loc-2-4 key1)
+ 
+12:
+(move loc-2-4 loc-2-3 c2324)
+ 
+13:
+(clean loc-2-3)
+ 
+14:
+(pick-up loc-2-3 key4)
+ 
+15:
+(move loc-2-3 loc-1-4 c2314)
+ 
+16:
+(move loc-1-4 loc-2-4 c1424)
+ 
+17:
+(unlock loc-2-4 c2425 purple key4)
+ 
+18:
+(move loc-2-4 loc-2-5 c2425)
+ 
+19:
+(drop loc-2-5 key4)
+ 
+20:
+(move loc-2-5 loc-2-4 c2425)
+ 
+21:
+(move loc-2-4 loc-1-4 c1424)
+ 
+22:
+(move loc-1-4 loc-1-3 c1314)
+ 
+23:
+(move loc-1-3 loc-2-3 c1323)
+ 
+24:
+(clean loc-2-3)
+ 
+25:
+(pick-up loc-2-3 key2)
+ 
+26:
+(move loc-2-3 loc-1-2 c1223)
+ 
+27:
+(move loc-1-2 loc-1-3 c1213)
+ 
+28:
+(move loc-1-3 loc-1-4 c1314)
+ 
+29:
+(move loc-1-4 loc-2-4 c1424)
+ 
+30:
+(move loc-2-4 loc-2-5 c2425)
+ 
+31:
+(unlock loc-2-5 c2535 green key2)
+ 
+32:
+(move loc-2-5 loc-3-5 c2535)
+ 
+33:
+(drop loc-3-5 key2)
+ 
+34:
+(move loc-3-5 loc-2-5 c2535)
+ 
+35:
+(move loc-2-5 loc-2-4 c2425)
+ 
+36:
+(pick-up loc-2-4 key1)
+ 
+37:
+(move loc-2-4 loc-3-4 c2434)
+ 
+38:
+(unlock loc-3-4 c2334 red key1)
+ 
+39:
+(move loc-3-4 loc-2-3 c2334)
+ 
+40:
+(unlock loc-2-3 c2333 red key1)
+ 
+41:
+(clean loc-2-3)
+ 
+42:
+(unlock loc-2-3 c3223 red key1)
+ 
+43:
+(drop loc-2-3 key1)
+ 
+44:
+(pick-up loc-2-3 key5)
+ 
+45:
+(move loc-2-3 loc-3-2 c3223)
+ 
+46:
+(move loc-3-2 loc-3-3 c3233)
+ 
+47:
+(move loc-3-3 loc-3-4 c3334)
+ 
+48:
+(move loc-3-4 loc-2-4 c2434)
+ 
+49:
+(move loc-2-4 loc-2-5 c2425)
+ 
+50:
+(move loc-2-5 loc-3-5 c2535)
+ 
+51:
+(unlock loc-3-5 c3545 purple key5)
+ 
+52:
+(move loc-3-5 loc-4-5 c3545)
+ 
+53:
+(drop loc-4-5 key5)
+ 
+54:
+(move loc-4-5 loc-3-5 c3545)
+ 
+55:
+(move loc-3-5 loc-2-5 c2535)
+ 
+56:
+(move loc-2-5 loc-2-4 c2425)
+ 
+57:
+(move loc-2-4 loc-3-4 c2434)
+ 
+58:
+(move loc-3-4 loc-3-3 c3334)
+ 
+59:
+(move loc-3-3 loc-2-3 c2333)
+ 
+60:
+(clean loc-2-3)
+ 
+61:
+(pick-up loc-2-3 key1)
+ 
+62:
+(unlock loc-2-3 c2223 red key1)
+ 
+63:
+(drop loc-2-3 key1)
+ 
+64:
+(pick-up loc-2-3 key3)
+ 
+65:
+(move loc-2-3 loc-2-2 c2223)
+ 
+66:
+(move loc-2-2 loc-1-2 c1222)
+ 
+67:
+(move loc-1-2 loc-1-3 c1213)
+ 
+68:
+(move loc-1-3 loc-1-4 c1314)
+ 
+69:
+(move loc-1-4 loc-2-4 c1424)
+ 
+70:
+(move loc-2-4 loc-2-5 c2425)
+ 
+71:
+(move loc-2-5 loc-3-5 c2535)
+ 
+72:
+(move loc-3-5 loc-4-5 c3545)
+ 
+73:
+(unlock loc-4-5 c4544 green key3)
+ 
+74:
+(move loc-4-5 loc-4-4 c4544)
+ 
+75:
+(drop loc-4-4 key3)
+ 
+76:
+(pick-up loc-4-4 key6)
+ 
+77:
+(unlock loc-4-4 c4443 rainbow key6)
+ 
+78:
+(move loc-4-4 loc-4-3 c4443)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (in key1 loc-2-1)
+Deleting (arm-free)
+Adding (holding key1)
+
+Checking next happening (time 2)
+Deleting (hero-at loc-2-1)
+Adding (hero-at loc-2-2)
+
+Checking next happening (time 3)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-1-2)
+
+Checking next happening (time 4)
+Deleting (locked c1223 red)
+
+Checking next happening (time 5)
+Deleting (hero-at loc-1-2)
+Adding (hero-at loc-1-3)
+
+Checking next happening (time 6)
+Deleting (locked c1323 red)
+
+Checking next happening (time 7)
+Deleting (hero-at loc-1-3)
+Adding (hero-at loc-1-4)
+
+Checking next happening (time 8)
+Deleting (locked c2314 red)
+
+Checking next happening (time 9)
+Deleting (hero-at loc-1-4)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 10)
+Deleting (locked c2324 red)
+
+Checking next happening (time 11)
+Deleting (holding key1)
+Adding (in key1 loc-2-4)
+Adding (arm-free)
+
+Checking next happening (time 12)
+Deleting (hero-at loc-2-4)
+Deleting (connected loc-2-4 c2324)
+Deleting (connected loc-2-3 c2324)
+Adding (hero-at loc-2-3)
+Adding (messy loc-2-3)
+
+Checking next happening (time 13)
+Deleting (messy loc-2-3)
+
+Checking next happening (time 14)
+Deleting (in key4 loc-2-3)
+Deleting (arm-free)
+Adding (holding key4)
+
+Checking next happening (time 15)
+Deleting (hero-at loc-2-3)
+Deleting (connected loc-2-3 c2314)
+Deleting (connected loc-1-4 c2314)
+Adding (hero-at loc-1-4)
+Adding (messy loc-1-4)
+
+Checking next happening (time 16)
+Deleting (hero-at loc-1-4)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 17)
+Deleting (locked c2425 purple)
+Deleting (one-use key4)
+Adding (no-use key4)
+
+Checking next happening (time 18)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-2-5)
+
+Checking next happening (time 19)
+Deleting (holding key4)
+Adding (in key4 loc-2-5)
+Adding (arm-free)
+
+Checking next happening (time 20)
+Deleting (hero-at loc-2-5)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 21)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-1-4)
+
+Checking next happening (time 22)
+Deleting (hero-at loc-1-4)
+Adding (hero-at loc-1-3)
+
+Checking next happening (time 23)
+Deleting (hero-at loc-1-3)
+Deleting (connected loc-1-3 c1323)
+Deleting (connected loc-2-3 c1323)
+Adding (hero-at loc-2-3)
+Adding (messy loc-2-3)
+
+Checking next happening (time 24)
+Deleting (messy loc-2-3)
+
+Checking next happening (time 25)
+Deleting (in key2 loc-2-3)
+Deleting (arm-free)
+Adding (holding key2)
+
+Checking next happening (time 26)
+Deleting (hero-at loc-2-3)
+Deleting (connected loc-2-3 c1223)
+Deleting (connected loc-1-2 c1223)
+Adding (hero-at loc-1-2)
+Adding (messy loc-1-2)
+
+Checking next happening (time 27)
+Deleting (hero-at loc-1-2)
+Adding (hero-at loc-1-3)
+
+Checking next happening (time 28)
+Deleting (hero-at loc-1-3)
+Adding (hero-at loc-1-4)
+
+Checking next happening (time 29)
+Deleting (hero-at loc-1-4)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 30)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-2-5)
+
+Checking next happening (time 31)
+Deleting (locked c2535 green)
+Deleting (one-use key2)
+Adding (no-use key2)
+
+Checking next happening (time 32)
+Deleting (hero-at loc-2-5)
+Adding (hero-at loc-3-5)
+
+Checking next happening (time 33)
+Deleting (holding key2)
+Adding (in key2 loc-3-5)
+Adding (arm-free)
+
+Checking next happening (time 34)
+Deleting (hero-at loc-3-5)
+Adding (hero-at loc-2-5)
+
+Checking next happening (time 35)
+Deleting (hero-at loc-2-5)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 36)
+Deleting (in key1 loc-2-4)
+Deleting (arm-free)
+Adding (holding key1)
+
+Checking next happening (time 37)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-3-4)
+
+Checking next happening (time 38)
+Deleting (locked c2334 red)
+
+Checking next happening (time 39)
+Deleting (hero-at loc-3-4)
+Deleting (connected loc-3-4 c2334)
+Deleting (connected loc-2-3 c2334)
+Adding (hero-at loc-2-3)
+Adding (messy loc-2-3)
+
+Checking next happening (time 40)
+Deleting (locked c2333 red)
+
+Checking next happening (time 41)
+Deleting (messy loc-2-3)
+
+Checking next happening (time 42)
+Deleting (locked c3223 red)
+
+Checking next happening (time 43)
+Deleting (holding key1)
+Adding (in key1 loc-2-3)
+Adding (arm-free)
+
+Checking next happening (time 44)
+Deleting (in key5 loc-2-3)
+Deleting (arm-free)
+Adding (holding key5)
+
+Checking next happening (time 45)
+Deleting (hero-at loc-2-3)
+Deleting (connected loc-2-3 c3223)
+Deleting (connected loc-3-2 c3223)
+Adding (hero-at loc-3-2)
+Adding (messy loc-3-2)
+
+Checking next happening (time 46)
+Deleting (hero-at loc-3-2)
+Adding (hero-at loc-3-3)
+
+Checking next happening (time 47)
+Deleting (hero-at loc-3-3)
+Adding (hero-at loc-3-4)
+
+Checking next happening (time 48)
+Deleting (hero-at loc-3-4)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 49)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-2-5)
+
+Checking next happening (time 50)
+Deleting (hero-at loc-2-5)
+Adding (hero-at loc-3-5)
+
+Checking next happening (time 51)
+Deleting (locked c3545 purple)
+Deleting (one-use key5)
+Adding (no-use key5)
+
+Checking next happening (time 52)
+Deleting (hero-at loc-3-5)
+Adding (hero-at loc-4-5)
+
+Checking next happening (time 53)
+Deleting (holding key5)
+Adding (in key5 loc-4-5)
+Adding (arm-free)
+
+Checking next happening (time 54)
+Deleting (hero-at loc-4-5)
+Adding (hero-at loc-3-5)
+
+Checking next happening (time 55)
+Deleting (hero-at loc-3-5)
+Adding (hero-at loc-2-5)
+
+Checking next happening (time 56)
+Deleting (hero-at loc-2-5)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 57)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-3-4)
+
+Checking next happening (time 58)
+Deleting (hero-at loc-3-4)
+Adding (hero-at loc-3-3)
+
+Checking next happening (time 59)
+Deleting (hero-at loc-3-3)
+Deleting (connected loc-3-3 c2333)
+Deleting (connected loc-2-3 c2333)
+Adding (hero-at loc-2-3)
+Adding (messy loc-2-3)
+
+Checking next happening (time 60)
+Deleting (messy loc-2-3)
+
+Checking next happening (time 61)
+Deleting (in key1 loc-2-3)
+Deleting (arm-free)
+Adding (holding key1)
+
+Checking next happening (time 62)
+Deleting (locked c2223 red)
+
+Checking next happening (time 63)
+Deleting (holding key1)
+Adding (in key1 loc-2-3)
+Adding (arm-free)
+
+Checking next happening (time 64)
+Deleting (in key3 loc-2-3)
+Deleting (arm-free)
+Adding (holding key3)
+
+Checking next happening (time 65)
+Deleting (hero-at loc-2-3)
+Deleting (connected loc-2-3 c2223)
+Deleting (connected loc-2-2 c2223)
+Adding (hero-at loc-2-2)
+Adding (messy loc-2-2)
+
+Checking next happening (time 66)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-1-2)
+
+Checking next happening (time 67)
+Deleting (hero-at loc-1-2)
+Adding (hero-at loc-1-3)
+
+Checking next happening (time 68)
+Deleting (hero-at loc-1-3)
+Adding (hero-at loc-1-4)
+
+Checking next happening (time 69)
+Deleting (hero-at loc-1-4)
+Adding (hero-at loc-2-4)
+
+Checking next happening (time 70)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-2-5)
+
+Checking next happening (time 71)
+Deleting (hero-at loc-2-5)
+Adding (hero-at loc-3-5)
+
+Checking next happening (time 72)
+Deleting (hero-at loc-3-5)
+Adding (hero-at loc-4-5)
+
+Checking next happening (time 73)
+Deleting (locked c4544 green)
+Deleting (one-use key3)
+Adding (no-use key3)
+
+Checking next happening (time 74)
+Deleting (hero-at loc-4-5)
+Adding (hero-at loc-4-4)
+
+Checking next happening (time 75)
+Deleting (holding key3)
+Adding (in key3 loc-4-4)
+Adding (arm-free)
+
+Checking next happening (time 76)
+Deleting (in key6 loc-4-4)
+Deleting (arm-free)
+Adding (holding key6)
+
+Checking next happening (time 77)
+Deleting (locked c4443 rainbow)
+
+Checking next happening (time 78)
+Deleting (hero-at loc-4-4)
+Adding (hero-at loc-4-3)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 78 
+
+Successful plans:
+Value: 78
+ ./submissions/queens_example/marking/1/plan.p03.pddl 78 
+

@@ -1,0 +1,204 @@
+Type-checking move
+...action passes type checking.
+Type-checking pick-up
+...action passes type checking.
+Type-checking drop
+...action passes type checking.
+Type-checking unlock
+...action passes type checking.
+Type-checking clean
+...action passes type checking.
+Checking plan: ./submissions/queens_example/reference/plan.p01.pddl
+Plan to validate:
+
+Plan size: 24
+1:
+(move loc-1-2 loc-2-2 c1222)
+ 
+2:
+(pick-up loc-2-2 key1)
+ 
+3:
+(move loc-2-2 loc-2-3 c2223)
+ 
+4:
+(unlock loc-2-3 c2324 red key1)
+ 
+5:
+(move loc-2-3 loc-2-4 c2324)
+ 
+6:
+(clean loc-2-4)
+ 
+7:
+(unlock loc-2-4 c2434 red key1)
+ 
+8:
+(drop loc-2-4 key1)
+ 
+9:
+(pick-up loc-2-4 key2)
+ 
+10:
+(move loc-2-4 loc-3-4 c2434)
+ 
+11:
+(unlock loc-3-4 c3444 yellow key2)
+ 
+12:
+(move loc-3-4 loc-4-4 c3444)
+ 
+13:
+(drop loc-4-4 key2)
+ 
+14:
+(pick-up loc-4-4 key4)
+ 
+15:
+(move loc-4-4 loc-3-4 c3444)
+ 
+16:
+(move loc-3-4 loc-3-3 c3334)
+ 
+17:
+(move loc-3-3 loc-3-2 c3233)
+ 
+18:
+(unlock loc-3-2 c3242 purple key4)
+ 
+19:
+(move loc-3-2 loc-4-2 c3242)
+ 
+20:
+(drop loc-4-2 key4)
+ 
+21:
+(pick-up loc-4-2 key3)
+ 
+22:
+(move loc-4-2 loc-3-2 c3242)
+ 
+23:
+(unlock loc-3-2 c3132 rainbow key3)
+ 
+24:
+(move loc-3-2 loc-3-1 c3132)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (hero-at loc-1-2)
+Adding (hero-at loc-2-2)
+
+Checking next happening (time 2)
+Deleting (arm-free)
+Deleting (key-at key1 loc-2-2)
+Adding (holding key1)
+
+Checking next happening (time 3)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-2-3)
+
+Checking next happening (time 4)
+Deleting (locked c2324)
+
+Checking next happening (time 5)
+Deleting (hero-at loc-2-3)
+Adding (hero-at loc-2-4)
+Adding (messy loc-2-4)
+Adding (collapsed c2324)
+
+Checking next happening (time 6)
+Deleting (messy loc-2-4)
+
+Checking next happening (time 7)
+Deleting (locked c2434)
+
+Checking next happening (time 8)
+Deleting (holding key1)
+Adding (arm-free)
+Adding (key-at key1 loc-2-4)
+
+Checking next happening (time 9)
+Deleting (arm-free)
+Deleting (key-at key2 loc-2-4)
+Adding (holding key2)
+
+Checking next happening (time 10)
+Deleting (hero-at loc-2-4)
+Adding (hero-at loc-3-4)
+Adding (messy loc-3-4)
+Adding (collapsed c2434)
+
+Checking next happening (time 11)
+Deleting (locked c3444)
+Deleting (key-double-use key2)
+Adding (key-single-use key2)
+
+Checking next happening (time 12)
+Deleting (hero-at loc-3-4)
+Adding (hero-at loc-4-4)
+
+Checking next happening (time 13)
+Deleting (holding key2)
+Adding (arm-free)
+Adding (key-at key2 loc-4-4)
+
+Checking next happening (time 14)
+Deleting (arm-free)
+Deleting (key-at key4 loc-4-4)
+Adding (holding key4)
+
+Checking next happening (time 15)
+Deleting (hero-at loc-4-4)
+Adding (hero-at loc-3-4)
+
+Checking next happening (time 16)
+Deleting (hero-at loc-3-4)
+Adding (hero-at loc-3-3)
+
+Checking next happening (time 17)
+Deleting (hero-at loc-3-3)
+Adding (hero-at loc-3-2)
+
+Checking next happening (time 18)
+Deleting (locked c3242)
+Deleting (key-single-use key4)
+Deleting (key-usable key4)
+
+Checking next happening (time 19)
+Deleting (hero-at loc-3-2)
+Adding (hero-at loc-4-2)
+
+Checking next happening (time 20)
+Deleting (holding key4)
+Adding (arm-free)
+Adding (key-at key4 loc-4-2)
+
+Checking next happening (time 21)
+Deleting (arm-free)
+Deleting (key-at key3 loc-4-2)
+Adding (holding key3)
+
+Checking next happening (time 22)
+Deleting (hero-at loc-4-2)
+Adding (hero-at loc-3-2)
+
+Checking next happening (time 23)
+Deleting (locked c3132)
+Deleting (key-single-use key3)
+Deleting (key-usable key3)
+
+Checking next happening (time 24)
+Deleting (hero-at loc-3-2)
+Adding (hero-at loc-3-1)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 24 
+
+Successful plans:
+Value: 24
+ ./submissions/queens_example/reference/plan.p01.pddl 24 
+

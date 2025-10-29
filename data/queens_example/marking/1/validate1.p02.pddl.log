@@ -1,0 +1,175 @@
+Type-checking move
+...action passes type checking.
+Type-checking pick-up
+...action passes type checking.
+Type-checking drop
+...action passes type checking.
+Type-checking unlock
+...action passes type checking.
+Type-checking clean
+...action passes type checking.
+Checking plan: ./submissions/queens_example/marking/1/plan.p02.pddl
+Plan to validate:
+
+Plan size: 20
+1:
+(pick-up loc-2-2 key3)
+ 
+2:
+(unlock loc-2-2 c2122 purple key3)
+ 
+3:
+(move loc-2-2 loc-2-1 c2122)
+ 
+4:
+(drop loc-2-1 key3)
+ 
+5:
+(pick-up loc-2-1 key1)
+ 
+6:
+(move loc-2-1 loc-2-2 c2122)
+ 
+7:
+(unlock loc-2-2 c2223 green key1)
+ 
+8:
+(move loc-2-2 loc-2-3 c2223)
+ 
+9:
+(drop loc-2-3 key1)
+ 
+10:
+(pick-up loc-2-3 key4)
+ 
+11:
+(move loc-2-3 loc-2-2 c2223)
+ 
+12:
+(unlock loc-2-2 c1222 yellow key4)
+ 
+13:
+(unlock loc-2-2 c2232 yellow key4)
+ 
+14:
+(drop loc-2-2 key4)
+ 
+15:
+(move loc-2-2 loc-1-2 c1222)
+ 
+16:
+(pick-up loc-1-2 key2)
+ 
+17:
+(move loc-1-2 loc-2-2 c1222)
+ 
+18:
+(move loc-2-2 loc-3-2 c2232)
+ 
+19:
+(unlock loc-3-2 c3242 rainbow key2)
+ 
+20:
+(move loc-3-2 loc-4-2 c3242)
+ 
+
+Plan Validation details
+-----------------------
+
+Checking next happening (time 1)
+Deleting (in key3 loc-2-2)
+Deleting (arm-free)
+Adding (holding key3)
+
+Checking next happening (time 2)
+Deleting (locked c2122 purple)
+Deleting (one-use key3)
+Adding (no-use key3)
+
+Checking next happening (time 3)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-2-1)
+
+Checking next happening (time 4)
+Deleting (holding key3)
+Adding (in key3 loc-2-1)
+Adding (arm-free)
+
+Checking next happening (time 5)
+Deleting (in key1 loc-2-1)
+Deleting (arm-free)
+Adding (holding key1)
+
+Checking next happening (time 6)
+Deleting (hero-at loc-2-1)
+Adding (hero-at loc-2-2)
+
+Checking next happening (time 7)
+Deleting (locked c2223 green)
+Deleting (one-use key1)
+Adding (no-use key1)
+
+Checking next happening (time 8)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-2-3)
+
+Checking next happening (time 9)
+Deleting (holding key1)
+Adding (in key1 loc-2-3)
+Adding (arm-free)
+
+Checking next happening (time 10)
+Deleting (in key4 loc-2-3)
+Deleting (arm-free)
+Adding (holding key4)
+
+Checking next happening (time 11)
+Deleting (hero-at loc-2-3)
+Adding (hero-at loc-2-2)
+
+Checking next happening (time 12)
+Deleting (locked c1222 yellow)
+Deleting (two-use key4)
+Adding (one-use key4)
+
+Checking next happening (time 13)
+Deleting (locked c2232 yellow)
+Deleting (one-use key4)
+Adding (no-use key4)
+
+Checking next happening (time 14)
+Deleting (holding key4)
+Adding (in key4 loc-2-2)
+Adding (arm-free)
+
+Checking next happening (time 15)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-1-2)
+
+Checking next happening (time 16)
+Deleting (in key2 loc-1-2)
+Deleting (arm-free)
+Adding (holding key2)
+
+Checking next happening (time 17)
+Deleting (hero-at loc-1-2)
+Adding (hero-at loc-2-2)
+
+Checking next happening (time 18)
+Deleting (hero-at loc-2-2)
+Adding (hero-at loc-3-2)
+
+Checking next happening (time 19)
+Deleting (locked c3242 rainbow)
+
+Checking next happening (time 20)
+Deleting (hero-at loc-3-2)
+Adding (hero-at loc-4-2)
+Plan executed successfully - checking goal
+Plan valid
+Final value: 20 
+
+Successful plans:
+Value: 20
+ ./submissions/queens_example/marking/1/plan.p02.pddl 20 
+
