@@ -16,66 +16,9 @@ Type-checking communicate_rock_data
 ...action passes type checking.
 Type-checking communicate_image_data
 ...action passes type checking.
-Checking plan: ./submissions/rover_example/marking/3/plan.p01.pddl
-Plan to validate:
-
-Plan size: 10
-1:
-(calibrate rover0 camera0 objective1 waypoint3)
- 
-2:
-(navigate rover0 waypoint3 waypoint1)
- 
-3:
-(navigate rover0 waypoint1 waypoint2)
- 
-4:
-(take_image rover0 waypoint3 objective1 camera0 high_res)
- 
-5:
-(communicate_image_data rover0 general objective1 high_res waypoint3 waypoint0)
- 
-6:
-(sample_soil rover0 rover0store waypoint2)
- 
-7:
-(communicate_soil_data rover0 general waypoint2 waypoint3 waypoint0)
- 
-8:
-(drop rover0 rover0store)
- 
-9:
-(sample_rock rover0 rover0store waypoint3)
- 
-10:
-(communicate_rock_data rover0 general waypoint3 waypoint3 waypoint0)
- 
-
-Plan Validation details
------------------------
-
-Checking next happening (time 1)
-Adding (calibrated camera0 rover0)
-
-Checking next happening (time 2)
-Deleting (at rover0 waypoint3)
-Adding (at rover0 waypoint1)
-
-Checking next happening (time 3)
-Deleting (at rover0 waypoint1)
-Adding (at rover0 waypoint2)
-
-Checking next happening (time 4)
-Plan failed because of unsatisfied precondition in:
-(take_image rover0 waypoint3 objective1 camera0 high_res)
-
-Plan failed to execute
-
-Plan Repair Advice:
-
-(take_image rover0 waypoint3 objective1 camera0 high_res) has an unsatisfied precondition at time 4
-(Set (at rover0 waypoint3) to true)
+Checking plan: data/reference/marking/3/plan.p01.pddl
+Bad plan file!
 
 
 Failed plans:
- ./submissions/rover_example/marking/3/plan.p01.pddl 
+ data/reference/marking/3/plan.p01.pddl 

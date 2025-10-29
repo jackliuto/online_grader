@@ -1,3 +1,0 @@
-(navigate rover0 waypoint3 waypoint0)
-(fail_calibrate2 rover0 camera0 objective1 waypoint3)
-; cost = 2 (unit cost)

@@ -1,4 +1,0 @@
-(sample_soil rover0 rover0store waypoint3)
-(drop rover0 rover0store)
-(fail_drop2 rover0 rover0store)
-; cost = 3 (unit cost)

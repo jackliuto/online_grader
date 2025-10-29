@@ -16,7 +16,7 @@ Type-checking communicate_rock_data
 ...action passes type checking.
 Type-checking communicate_image_data
 ...action passes type checking.
-Checking plan: ./submissions/rover_example/reference/plan.p01.pddl
+Checking plan: data/reference/reference/plan.p01.pddl
 Plan to validate:
 
 Plan size: 10
@@ -116,5 +116,5 @@ Final value: 10
 
 Successful plans:
 Value: 10
- ./submissions/rover_example/reference/plan.p01.pddl 10 
+ data/reference/reference/plan.p01.pddl 10 
 
