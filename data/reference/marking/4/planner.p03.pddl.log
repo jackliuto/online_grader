@@ -1,2 +1,0 @@
-./fast-downward.sif --alias lama-first --overall-memory-limit 8G --overall-time-limit 60 --plan-file data/reference/marking/4/plan.p03.pddl data/reference/submissions/4/domain.pddl data/reference/submissions/4/p03.pddl
-/usr/bin/env: ‘run-singularity’: No such file or directory

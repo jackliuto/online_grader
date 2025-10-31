@@ -10,7 +10,10 @@ from typing import Any, Dict, Optional
 from flask import Flask, request, jsonify
 from werkzeug.exceptions import HTTPException
 
-from grade import Grader
+from grader import Grader
+
+
+REFERENCE_LOC = "data/reference"
 
 # --- Optional CORS (enable if frontend is separate) ---
 ENABLE_CORS = True
@@ -39,29 +42,31 @@ def create_app() -> Flask:
         """
         JSON input shape:
         {
-          "domain": "<PDDL domain text>",      # optional if your grader has a default
-          "problem": "<PDDL problem text>",    # optional
-          "plan": "<student plan text>",       # required
-          "meta": {...}                        # optional, e.g., student id, assignment id
+          "domain": "<PDDL domain text>",      # required
+          "problem": "<PDDL problem text>",    # required
+          "problem_id": "1|2|3"                # required
         }
         """
         # 1) Parse & validate inputs
         try:
             payload = request.get_json(force=True, silent=False)
         except Exception:
-            return _bad_request("Body must be valid JSON with plan/domain/problem strings.")
+            return _bad_request("Body must be valid JSON with domain/problem/problem_id.")
 
-        plan = _expect_str(payload, "plan", required=True)
-        domain = _expect_str(payload, "domain", required=False)
-        problem = _expect_str(payload, "problem", required=False)
-        meta = payload.get("meta") if isinstance(payload.get("meta"), dict) else {}
+        domain = _expect_str(payload, "domain", required=True)
+        problem = _expect_str(payload, "problem", required=True)
+        problem_id = _expect_str(payload, "problem_id", required=True)
 
-        if plan is None or not plan.strip():
-            return _bad_request("Missing required field: 'plan' (non-empty string).")
+        if domain is None or not domain.strip():
+            return _bad_request("Missing required field: 'domain' (non-empty string).")
+        if problem is None or not problem.strip():
+            return _bad_request("Missing required field: 'problem' (non-empty string).")
+        if problem_id not in ["1", "2", "3"]:
+            return _bad_request("Field 'problem_id' must be '1', '2', or '3'.")
 
         # 2) Run your grading / validation pipeline
         try:
-            result = run_grader(plan=plan, domain=domain, problem=problem, meta=meta)
+            result = run_grader(domain=domain, problem=problem, problem_id=problem_id)
         except StudentInputError as e:
             # errors caused by bad student input -> 400
             return _bad_request(str(e))
@@ -75,24 +80,47 @@ def create_app() -> Flask:
     @app.post("/grade-file")
     def grade_file():
         """
-        Multipart upload:
-          - files['plan']    : required (text file)
-          - files['domain']  : optional
-          - files['problem'] : optional
+        Accepts either JSON or multipart form-data.
+        - JSON body fields: 'domain' (required), 'problem' (required), 'problem_id' (required '1'|'2'|'3')
+        - Multipart upload:
+            files['domain']  : required
+            files['problem'] : required
+            form['problem_id']: required ('1', '2', or '3')
         """
-        # if "plan" not in request.files:
-        #     return _bad_request("Upload must include a file part named 'plan'.")
+        plan = None
+        domain = None
+        problem = None
+        problem_id = None
 
-        plan_file = request.files["plan"]
-        domain_file = request.files.get("domain")
-        problem_file = request.files.get("problem")
+        if request.is_json:
+            try:
+                payload = request.get_json(force=True, silent=False)
+            except Exception:
+                return _bad_request("Body must be valid JSON with domain/problem/problem_id.")
+            domain = payload.get("domain")
+            problem = payload.get("problem")
+            problem_id = payload.get("problem_id")
+        else:
+            # Multipart form-data path
+            domain_file = request.files.get("domain")
+            problem_file = request.files.get("problem")
+            problem_id = request.form.get("problem_id")
 
-        plan = plan_file.read().decode("utf-8", errors="replace")
-        domain = domain_file.read().decode("utf-8", errors="replace") if domain_file else None
-        problem = problem_file.read().decode("utf-8", errors="replace") if problem_file else None
+            if domain_file:
+                domain = domain_file.read().decode("utf-8", errors="replace")
+            if problem_file:
+                problem = problem_file.read().decode("utf-8", errors="replace")
+
+        # Basic validations aligned with test client
+        if domain is None or not str(domain).strip():
+            return _bad_request("Missing required field: 'domain'.")
+        if problem is None or not str(problem).strip():
+            return _bad_request("Missing required field: 'problem'.")
+        if not problem_id or problem_id not in ["1", "2", "3"]:
+            return _bad_request("Field 'problem_id' must be '1', '2', or '3'.")
 
         try:
-            result = run_grader(plan=plan, domain=domain, problem=problem, meta={"source": "upload"})
+            result = run_grader(domain=domain, problem=problem, problem_id=problem_id)
         except StudentInputError as e:
             return _bad_request(str(e))
         except Exception:
@@ -133,59 +161,42 @@ class StudentInputError(Exception):
     pass
 
 
-def run_grader(*, plan: str, domain: Optional[str], problem: Optional[str], meta: Dict[str, Any]) -> Dict[str, Any]:
+def run_grader(*, domain: Optional[str], problem: Optional[str], problem_id: str) -> Dict[str, Any]:
     """
     Core grading logic: validate a PDDL plan using the Grader class.
     """
     # --- Basic input checks ---
-    if len(plan.strip().splitlines()) == 0:
-        raise StudentInputError("Plan file is empty.")
     if domain is None or not domain.strip():
         raise StudentInputError("Domain file is required.")
     if problem is None or not problem.strip():
         raise StudentInputError("Problem file is required.")
 
     # --- Setup temporary directory for grading ---
-    base_folder = tempfile.mkdtemp(prefix="pddl-grader-")
-    student_id = str(uuid.uuid4())
-    problem_name = meta.get("problem_name", "p01.pddl") # Default problem name if not provided
+    reference_dir = REFERENCE_LOC
+    grader = Grader(reference_dir)
 
-    try:
-        # --- Create the directory structure Grader expects ---
-        submission_dir = os.path.join(base_folder, "submissions", student_id)
-        reference_dir = os.path.join(base_folder, "reference")
-        marking_dir = os.path.join(base_folder, "marking")
-        os.makedirs(submission_dir)
-        os.makedirs(reference_dir)
-        os.makedirs(marking_dir)
+    # 1) Generate a plan using submitted domain/problem
+    plan_gen = grader.generate_plan(domain, problem, timeout=30, optimal=False)
+    if not plan_gen.get("ok"):
+        return {
+            "ok": False,
+            "error": "Plan generation failed",
+            "planning": plan_gen,
+        }
+    plan_text = plan_gen.get("plan", "")
 
-        # --- Write submitted files ---
-        with open(os.path.join(submission_dir, "domain.pddl"), "w") as f:
-            f.write(domain)
-        with open(os.path.join(submission_dir, problem_name), "w") as f:
-            f.write(problem)
-        # The Grader's check_solve expects the plan to be in the marking dir, so we place it there.
-        os.makedirs(os.path.join(marking_dir, student_id))
-        with open(os.path.join(marking_dir, student_id, f"plan.{problem_name}"), "w") as f:
-            f.write(plan)
+    # 2) Validate both directions
+    validation = grader.validate_submission(domain, problem, plan_text, problem_id)
 
-        # --- Copy reference files (assuming they are in a known location) ---
-        # This part is tricky; for now, we'll assume the submitted domain/problem can also serve as reference
-        # A real implementation would copy from a secured, standard reference set.
-        with open(os.path.join(reference_dir, "domain.pddl"), "w") as f:
-            f.write(domain)
-        with open(os.path.join(reference_dir, problem_name), "w") as f:
-            f.write(problem)
+    # 3) Check alignment
+    alignment = grader.check_alignment(domain, problem, problem_id)
 
-        # --- Run the grader and get the report dictionary ---
-        grader = Grader(base_folder)
-        report_dict = grader.grade(student_id)
-
-        return report_dict
-
-    finally:
-        # --- Clean up the temporary directory ---
-        shutil.rmtree(base_folder)
+    return {
+        "ok": bool(validation.get("student_plan_on_reference", {}).get("ok") and validation.get("reference_plan_on_student", {}).get("ok")),
+        "planning": plan_gen,
+        "validation": validation,
+        "alignment": alignment,
+    }
 
 
 # -----------------------
@@ -199,15 +210,6 @@ def _expect_str(obj: Dict[str, Any], key: str, *, required: bool) -> Optional[st
         raise StudentInputError(f"Field '{key}' must be a string.")
     return val
 
-def _normalize_plan(plan: str) -> str:
-    # Very simple normalization demo: trim and collapse multiple blank lines
-    lines = [ln.rstrip() for ln in plan.splitlines()]
-    return "\n".join(lines).strip()
-
-def _length_penalty(plan: str) -> float:
-    # Example: shorter plans slightly preferred but bounded
-    n = len([ln for ln in plan.splitlines() if ln.strip()])
-    return max(0.0, min(1.0, 1.5 / (1 + 0.05 * n)))
 
 def _bad_request(msg: str):
     return jsonify({"error": "BadRequest", "message": msg}), 400

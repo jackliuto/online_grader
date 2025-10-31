@@ -4,7 +4,6 @@ import requests
 
 # Default URL for server_test.py app
 SERVER_URL = os.getenv("SERVER_URL", "http://localhost:5000")
-PROBLEM_NAME = os.getenv("PROBLEM_NAME", "p01.pddl")
 
 
 def read_text(path: str) -> str:
@@ -13,24 +12,25 @@ def read_text(path: str) -> str:
 
 def main() -> None:
     # Adjust filenames here if yours differ
-    domain_path = "domain.pddl"
-    problem_path = "p01.pddl"
-    plan_path = "plan.p01.pddl"
+    domain_path = "data/submission/domain.pddl"
+    problem_path = "data/submission/p01.pddl"
+    # plan_path = "data/submission/plan.p01.pddl"
+    problem_id = "1" # <--- Change this to test p01, p02, or p03
 
     domain = read_text(domain_path)
     problem = read_text(problem_path)
-    plan = read_text(plan_path)
+    # plan = read_text(plan_path)
 
     # JSON POST to /grade
     payload = {
         "domain": domain,
         "problem": problem,
-        "plan": plan,
-        "meta": {"problem_name": PROBLEM_NAME, "source": "json"},
+        # "plan": plan,
+        "problem_id": problem_id
     }
     try:
-        r = requests.post(f"{SERVER_URL}/grade", json=payload, timeout=120)
-        print("POST /grade ->", r.status_code)
+        r = requests.post(f"{SERVER_URL}/grade-file", json=payload, timeout=60)
+        print("POST /grade-file ->", r.status_code)
         try:
             print(r.json())
         except Exception:
@@ -38,21 +38,21 @@ def main() -> None:
     except Exception as e:
         print("Error calling /grade:", e)
 
-    # Multipart upload to /grade-file
-    files = {
-        "domain": ("domain.pddl", domain, "text/plain"),
-        "problem": (PROBLEM_NAME, problem, "text/plain"),
-        "plan": (f"plan.{PROBLEM_NAME}", plan, "text/plain"),
-    }
-    try:
-        r2 = requests.post(f"{SERVER_URL}/grade-file", files=files, timeout=120)
-        print("POST /grade-file ->", r2.status_code)
-        try:
-            print(r2.json())
-        except Exception:
-            print(r2.text)
-    except Exception as e:
-        print("Error calling /grade-file:", e)
+    # # Multipart upload to /grade-file
+    # files = {
+    #     "domain": ("domain.pddl", domain, "text/plain"),
+    #     "plan": ("plan.pddl", plan, "text/plain"),
+    # }
+    # data = {"problem_id": problem_id}
+    # try:
+    #     r2 = requests.post(f"{SERVER_URL}/grade-file", files=files, data=data, timeout=120)
+    #     print("POST /grade-file ->", r2.status_code)
+    #     try:
+    #         print(r2.json())
+    #     except Exception:
+    #         print(r2.text)
+    # except Exception as e:
+    #     print("Error calling /grade-file:", e)
 
 
 if __name__ == "__main__":

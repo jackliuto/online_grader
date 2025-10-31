@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/home/jackliu/pddl_assignment/online_grader/merge.py", line 2, in <module>
-    from tarski.syntax import land, CompoundFormula
-ModuleNotFoundError: No module named 'tarski'
